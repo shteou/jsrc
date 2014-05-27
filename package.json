@@ -1,0 +1,24 @@
+{
+  "name": "jsrc",
+  "version": "0.0.0",
+  "description": "JavaScript Remote Console",
+  "main": "server.js",
+  "dependencies": {
+    "json3": "~3.3.1",
+    "ramda": "~0.1.3",
+    "socket.io": "~0.9.17",
+    "typeahead": "~0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shteou/jsrc.git"
+  },
+  "author": "Stewart Platt",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "783c3a330e74a5336d5f3cd364a95fe96726876e"
+}
