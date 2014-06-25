@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>jsrc - JavaScript Remote Console</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+<script>
+io = io.connect()
+
+// Emit ready event, and wait for acknowledgement.
+io.emit
+('ready', {hey: 'server'}, function(data) {
+    alert(data.success)
+})
+</script>
+
+</body>
+</html>
