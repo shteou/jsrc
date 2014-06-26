@@ -2,18 +2,24 @@
 <head>
   <title>jsrc - JavaScript Remote Console</title>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.3/zepto.min.js"></script>
+
+  <script src="js/util.js"></script>
+
+  <script src="js/tpl.js"></script>
+  <script src="js/node.js"></script>
+  <script src="js/leaf.js"></script>
+
+  <script src="js/console.js"></script>
+
+  <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
+  <input id="console-input"></input>
 
-<script>
-io = io.connect()
-
-// Emit ready event, and wait for acknowledgement.
-io.emit
-('ready', {hey: 'server'}, function(data) {
-    alert(data.success)
-})
-</script>
-
+  <div id="console-lines">
+  </div>
 </body>
 </html>

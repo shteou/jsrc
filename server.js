@@ -14,8 +14,10 @@ app.io.route('target-connect', function(req) {
 });
 
 app.io.route('console-connect', function(req) {
-  req.io.join(req.data);
-  req.io.broadcast('console connected');
+  console.log("New console connected with ID " + req.data.id);
+
+  req.io.join(req.data.id);
+  req.io.room(req.data.id).broadcast('console-connect');
 });
 
 app.io.route('command', function(req) {
