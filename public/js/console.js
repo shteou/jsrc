@@ -21,8 +21,8 @@ var Console = (function(IO) {
       printArgs("to your target application.");
       printArgs("Console attached, please add <script src='rc.js?id='" + id + "></script>");
 
-      io.on('log', function(req) {
-        printArgs(req.data.log);
+      io.on('log', function(data) {
+        printArgs(data);
       });
     });
   }
