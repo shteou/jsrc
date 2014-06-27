@@ -21,9 +21,10 @@ app.io.route('console-connect', function(req) {
 });
 
 app.io.route('command', function(req) {
-  req.io.broadcast('command ' + req.data);
+  console.log("New command received: " + req.data.command);
+  req.io.room(req.data.id).broadcast('command ' + req.data.command);
 });
 
 app.io.route('log', function(req) {
-  req.io.broadcast('log ' + req.data);
+  req.io.room(req.data.id).broadcast('log ' + req.data.log);
 });
