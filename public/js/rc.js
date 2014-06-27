@@ -34,8 +34,6 @@ var scripts = document.getElementsByTagName('script'),
     id = getParameterByName(querystring, 'id'),
     oldConsoleLog = console.log;
 
-alert(id);
-
 function queueLog() {
   oldConsoleLog.apply(console, arguments);
   queue.push(arguments);
