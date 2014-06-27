@@ -1,6 +1,7 @@
 var Console = (function(IO) {
   var io,
-      id;
+      id,
+      inputBuffer = [];
 
   function init() {
     $('#console-input').on('keypress', 13, function(e) {
@@ -10,24 +11,36 @@ var Console = (function(IO) {
         return false;        
       }
     });
-
-    io.on('log', function(req) {
-      console.log(req);
-    });
   }
 
   function listen(listenId) {
     id = listenId;
     io = IO.connect();
-    io.emit('console-connect', {id: id});
+
+    io.emit('console-connect', {id: id}, function(res) {
+      printArgs("to your target application.");
+      printArgs("Console attached, please add <script src='rc.js?id='" + id + "></script>");
+
+      io.on('log', function(req) {
+        printArgs(req.data.log);
+      });
+    });
   }
 
   function consoleCommand(cmd) {
+    inputBuffer.unshift(cmd);
+
     if(cmd.indexOf(':listen ') === 0) {
       listen(cmd.split(' ')[1]);
     } else if(cmd.indexOf(':clear') === 0) {
       $('#console-lines').html('');
       console.clear();
+    } else if (cmd.indexOf(':log') === 0) {
+      var logStatement = cmd.split(' ').splice(1).join(' ');
+      var res = eval("res = " + logStatement);
+
+      console.log(res);
+      printArgs(res);
     } else {
       io.emit('command', {id: id, command: cmd});
     }
