@@ -16,6 +16,8 @@ app.io.route('target-connect', function(req) {
 app.io.route('console-connect', function(req) {
   console.log("New console connected with ID " + req.data.id);
 
+  req.io.respond();
+
   req.io.join(req.data.id);
   req.io.room(req.data.id).broadcast('console-connect');
 });
