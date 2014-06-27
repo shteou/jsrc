@@ -1,17 +1,24 @@
-(function() {
-  var console,
-      io;
+var Console = (function(IO) {
+  var io,
+      id;
 
   function init() {
-    $('#console-input').bind('keypress', 13, function(e) {
-      consoleCommand($('#console-input').val());
-      $('#console-input').val('');
-      return false;
+    $('#console-input').on('keypress', 13, function(e) {
+      if(e.keyCode === 13) {;
+        consoleCommand($('#console-input').val());
+        $('#console-input').val('');
+        return false;        
+      }
+    });
+
+    io.on('log', function(req) {
+      console.log(req);
     });
   }
 
-  function listen(id) {
-    io = io.connect();
+  function listen(listenId) {
+    id = listenId;
+    io = IO.connect();
     io.emit('console-connect', {id: id});
   }
 
@@ -22,7 +29,7 @@
       $('#console-lines').html('');
       console.clear();
     } else {
-      remoteLogSocket.send(cmd);
+      io.emit('command', {id: id, command: cmd});
     }
   }
 
@@ -43,5 +50,7 @@
     }
   }
 
-  init();
-})();
+  return {
+    init: init
+  };
+})(io);
