@@ -22,6 +22,8 @@ var Console = (function(IO) {
       printArgs("Console attached, please add <script src='rc.js?id='" + id + "></script>");
 
       io.on('log', function(data) {
+        data = JSON.parse(data);
+        console.log(typeof(data));
         printArgs(data);
       });
     });
@@ -51,10 +53,18 @@ var Console = (function(IO) {
     var node;
 
     if(arguments.length === 1) {
-      node = new PrettyJSON.view.Node({
-        el:$('.console-line:first-of-type'),
-          data:arguments[0]
-      });
+      var arg = arguments[0];
+      if(_.isNumber(arg) || _.isFunction(arg) || _.isString(arg) || _.isBoolean(arg) || _.isDate(arg) || _.isRegExp(arg) || _.isNull(arg) || _.isUndefined(arg)) {
+        node = new PrettyJSON.view.Leaf({
+          el:$('.console-line:first-of-type'),
+            data:arg
+        });
+      } else {
+        node = new PrettyJSON.view.Node({
+          el:$('.console-line:first-of-type'),
+            data:arg
+        });
+      }
     } else {
       node = new PrettyJSON.view.Node({
         el:$('.console-line:first-of-type'),
@@ -67,3 +77,4 @@ var Console = (function(IO) {
     init: init
   };
 })(io);
+
