@@ -19,7 +19,8 @@ var Console = (function(IO) {
 
     io.emit('console-connect', {id: id}, function(res) {
       printArgs("to your target application.");
-      printArgs("Console attached, please add <script src='rc.js?id='" + id + "></script>");
+      printArgs("Console attached, please add <script src='" + window.location.protocol + 
+        "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + "/js/rc.js?id=" + id + "'></script>");
 
       io.on('log', function(data) {
         data = JSON.parse(data);
