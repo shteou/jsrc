@@ -23,8 +23,11 @@ var Console = (function(IO) {
 
       io.on('log', function(data) {
         data = JSON.parse(data);
-        console.log(typeof(data));
-        printArgs(data);
+        data = _.toArray(data);
+
+        console.log.apply(console, data);
+
+        printArgs.apply(this, data);
       });
     });
   }
