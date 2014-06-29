@@ -35,7 +35,6 @@ var scripts = document.getElementsByTagName('script'),
     oldConsoleLog = console.log;
 
 function queueLog() {
-  oldConsoleLog.apply(console, arguments);
   queue.push(arguments);
 }
 
